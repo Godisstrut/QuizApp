@@ -1,0 +1,19 @@
+body {
+    background-color: beige;
+}
+
+#container {
+    text-align: center;
+}
+
+#game-modes {
+    padding: 1em;
+}
+
+button {
+    padding: 1em;
+}
+
+#game-modes, button {
+    margin: 5em;
+}
