@@ -4,17 +4,24 @@ async function FetchApiCall() {
         const data = await response.json();
         console.log(data);
         const question = data.results[0];
-        const answer = data.results[0];
-        DisplayQuestion(question, answer);
+        const allAnswers = [...question.incorrect_answers, question.correct_answer];
+        DisplayQuestion(question, allAnswers);
     } catch (err) {
         console.error("Failed to fetch data from API", err)
     }
 }
 
-function DisplayQuestion(question, answer) {
+function DisplayQuestion(question, allAnswers) {
     document.getElementById("questions").textContent = question.question
-    document.getElementById("answers").textContent = answer.correct_answer
-    document.getElementById("answers").textContent = answer.incorrect_answer
+
+    const answers = document.getElementById("answers");
+    answers.innerHTML = "";
+
+    allAnswers.forEach(answer => {
+        const answerBtn = document.createElement("button");
+        answerBtn.textContent = answer;
+        answers.appendChild(answerBtn);
+    })
 }
 
 FetchApiCall();
