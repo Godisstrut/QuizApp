@@ -12,8 +12,20 @@
             <h1>Trivia Questions</h1>
         </header>
         <main>
-            <div id="questions"></div>
-            <div id="answers"></div>
+            <div id="quiz-selection">
+                <h2>Select a quiz type</h2>
+                <button id="btn-multible">Multible choice</button>
+                <button id="btnboolean">True or False</button>
+
+                <h2>Select Difficulty</h2>
+                <button onclick="SelectedDifficulty('easy')">Easy</button>
+                <button onclick="SelectedDifficulty('medium')">Medium</button>
+                <button onclick="SelectedDifficulty('hard')">Hard</button>
+            </div>
+            <div id="quiz-content">
+                <div id="questions"></div>
+                <div id="answers"></div>
+            </div>
         </main>
     </div>
     <script src="script.js"></script>

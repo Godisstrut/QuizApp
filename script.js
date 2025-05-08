@@ -1,8 +1,34 @@
 let triviaQuestions = [];
+let quizStarted = false;
+let questionType = "";
 
-async function FetchApiCall() {
+function SelectedQuestionType() {
+    questionType = Type;
+    console.log("Selected type:", questionType)
+}
+
+function SelectedDifficulty(difficulty) {
+    quizStarted = true;
+    document.getElementById("quiz-selection").style.display = "none";
+    if (questionType === "multiple"){
+        FetchMultipleQuestion(difficulty);
+    } else if (questionType === "boolean"){
+        FetchBooleanQuestion(difficulty)
+    }
+}
+
+document.getElementById("btn-multible").addEventListener("click", () => {
+    questionType = "multiple";
+});
+
+document.getElementById("btnboolean").addEventListener("click", () => {
+    questionType = "boolean";
+});
+
+
+async function FetchMultipleQuestion(difficulty) {
     try {
-        const response = await fetch("https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple");
+        const response = await fetch(`https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=multiple`);
         const data = await response.json();
         triviaQuestions = data.results;
         console.log(data);
@@ -14,9 +40,9 @@ async function FetchApiCall() {
     }
 }
 
-async function FetchBooleanQuestion() {
+async function FetchBooleanQuestion(difficulty) {
     try {
-        const response = await fetch("https://opentdb.com/api.php?amount=10&difficulty=easy&type=boolean");
+        const response = await fetch(`https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=boolean`);
         const data = await response.json();
         triviaQuestions = data.results;
         const question = data.results[0];
@@ -41,4 +67,6 @@ function DisplayQuestion(question, allAnswers) {
     })
 }
 
-FetchBooleanQuestion();
+function shuffleAnswers(answers) {
+    return answers.sort(() => Math.random() - 0.5);
+}
